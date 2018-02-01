@@ -8,6 +8,7 @@ License: GPLv3
 Encoding: UTF-8
 LazyData: true
 Imports: 
-    diveMove
-    gridExtra
+    diveMove,
+    gridExtra,
     tidyverse
+RoxygenNote: 6.0.1
