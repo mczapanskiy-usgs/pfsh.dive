@@ -16,7 +16,17 @@
 #' }
 #'
 #' @examples
-#' TODO
+#' # Uses tidyverse functions
+#' metadata <- system.file('extdata',
+#'   'MOC2015PFSHmetadata.csv',
+#'   package = 'pfsh.dive') %>%
+#'   read_csv
+#' example_tdr <- system.file('extdata',
+#'   paste0('metadata$TDR_filename[1]', '.CSV'),
+#'   package = 'pfsh.dive')
+#' tdr <- read_cefas(example_tdr,
+#'   metadata$Deployed[1],
+#'   metadata$Recovered[1])
 #'
 #' @export
 read_cefas <- function(cefas_file, deployed, recovered) {
