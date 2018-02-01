@@ -34,9 +34,9 @@
 #' TODO
 #'
 #' @export
-#' calibrate_tdr <- function(tdr, id, rate = 0.1, surface_thr = .1, depth_thr = .2, dur_thr = .5) {
+calibrate_tdr <- function(tdr, diveid, rate = 0.1, surface_thr = .1, depth_thr = .2, dur_thr = .5) {
   if(nrow(tdr) == 0) {
-    warning(sprintf('No data for TDR %s', id))
+    warning(sprintf('No data for TDR %s', diveid))
     return(tdr)
   }
 
@@ -96,7 +96,7 @@
     calib_events %>%
       left_join(dive_ids, by = c('EventID', 'DiveIDinit')) %>%
       select(-DiveIDinit) %>%
-      mutate(DeployID = id)
+      mutate(DeployID = diveid)
   } else {
     NULL
   }
