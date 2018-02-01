@@ -94,5 +94,5 @@ plot_dive <- function(calib_tdr, diveid, surface_thr = .1) {
          title = '')
 
   # Dive and event plots side-by-side
-  grid.arrange(dive_plot, event_plot, ncol = 2, widths = c(3, 2))
+  gridExtra::grid.arrange(dive_plot, event_plot, ncol = 2, widths = c(3, 2))
 }

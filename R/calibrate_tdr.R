@@ -67,15 +67,15 @@ calibrate_tdr <- function(tdr, deployid, rate = 0.1, surface_thr = .1, depth_thr
   calibrate_event <- function(event) {
     surface <- min(event$Pressure, na.rm = TRUE)
     # Create a TDR object
-    calib_event <- createTDR(event$UTC,
-                             event$Pressure,
-                             dtime = rate,
-                             file = 'NA') %>%
+    calib_event <- diveMove::createTDR(event$UTC,
+                                       event$Pressure,
+                                       dtime = rate,
+                                       file = 'NA') %>%
       # Calibrate event using minimum pressure as surface offset
-      calibrateDepth(wet.thr = 0,
-                     dive.thr = surface_thr,
-                     zoc.method = 'offset',
-                     offset = surface)
+      diveMove::calibrateDepth(wet.thr = 0,
+                               dive.thr = surface_thr,
+                               zoc.method = 'offset',
+                               offset = surface)
 
     # Pull calibrated pressures, initial dive ids, and phases from calibrated TDR object
     calib_event_df <- data.frame(CalibPressure = calib_event@tdr@depth,
