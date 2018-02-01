@@ -29,7 +29,7 @@ calibrate_tdr <- function(tdr, id, rate = 0.1, surface_thr = .1, depth_thr = .2,
                      zoc.method = 'offset',
                      offset = surface)
 
-    # Pull calibrated pressures, dive ids, and phases from calibrated TDR object
+    # Pull calibrated pressures, initial dive ids, and phases from calibrated TDR object
     calib_event_df <- data.frame(CalibPressure = calib_event@tdr@depth,
                                  Surface = surface,
                                  DiveIDinit = calib_event@dive.activity$dive.id,
@@ -40,19 +40,25 @@ calibrate_tdr <- function(tdr, id, rate = 0.1, surface_thr = .1, depth_thr = .2,
       arrange(UTC)
   }
 
-  # Split-apply-combine to calibate events
+  # Split-apply-combine to calibrate events
   if(nrow(valid_events) > 0) {
-    result <- semi_join(tdr, valid_events, by = 'EventID') %>%
+    calib_events <- semi_join(tdr, valid_events, by = 'EventID') %>%
       group_by(EventID) %>%
       do(calibrate_event(.))
 
     # Re-assign dive IDs in consecutive order
-    dive_ids <- result %>%
-      group_by(DiveIDinit) %>%
-      summarize %>%
+    dive_ids <- calib_events %>%
+      filter(DiveIDinit > 0) %>%
+      group_by(EventID, DiveIDinit) %>%
+      summarize(duration = as.numeric(max(UTC, na.rm = TRUE) - min(UTC, na.rm = TRUE), units = 'secs'),
+                depth = max(CalibPressure, na.rm = TRUE)) %>%
+      filter(duration >= dur_thr,
+             depth >= depth_thr) %>%
+      ungroup %>%
       mutate(DiveID = row_number())
-    result %>%
-      left_join(dive_ids, by = 'DiveIDinit') %>%
+
+    calib_events %>%
+      left_join(dive_ids, by = c('EventID', 'DiveIDinit')) %>%
       select(-DiveIDinit) %>%
       mutate(DeployID = id)
   } else {
