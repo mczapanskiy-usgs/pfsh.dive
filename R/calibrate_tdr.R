@@ -31,12 +31,23 @@
 #' }
 #'
 #' @examples
-#' TODO
+#' # Uses tidyverse functions
+#' metadata <- system.file('extdata',
+#'   'MOC2015PFSHmetadata.csv',
+#'   package = 'pfsh.dive') %>%
+#'   read_csv
+#' example_tdr <- system.file('extdata',
+#'   paste0('metadata$TDR_filename[1]', '.CSV'),
+#'   package = 'pfsh.dive')
+#' tdr <- read_cefas(example_tdr,
+#'   metadata$Deployed[1],
+#'   metadata$Recovered[1])
+#' calib_tdr <- calibrate_tdr(tdr, metadata$DeployID[1])
 #'
 #' @export
-calibrate_tdr <- function(tdr, diveid, rate = 0.1, surface_thr = .1, depth_thr = .2, dur_thr = .5) {
+calibrate_tdr <- function(tdr, deployid, rate = 0.1, surface_thr = .1, depth_thr = .2, dur_thr = .5) {
   if(nrow(tdr) == 0) {
-    warning(sprintf('No data for TDR %s', diveid))
+    warning(sprintf('No data for TDR %s', deployid))
     return(tdr)
   }
 
@@ -96,7 +107,7 @@ calibrate_tdr <- function(tdr, diveid, rate = 0.1, surface_thr = .1, depth_thr =
     calib_events %>%
       left_join(dive_ids, by = c('EventID', 'DiveIDinit')) %>%
       select(-DiveIDinit) %>%
-      mutate(DeployID = diveid)
+      mutate(DeployID = deployid)
   } else {
     NULL
   }
