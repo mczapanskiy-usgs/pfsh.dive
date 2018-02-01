@@ -1,4 +1,25 @@
-plot_dive <- function(calib_tdr, diveid, surface_thr = .1, depth_thr = .2) {
+#' Create a dive plot
+#'
+#' \code{plot_dive} creates a plot of a single dive in two panels. The left
+#' panel zooms in on the dive itself and the right panel is an overview of the
+#' entire event. In the left panel, blue points are within the dive and red
+#' points are the surrounding records for context. The right panel has two
+#' curves. The red one shows the original, pre-calibration points. The green
+#' one is the calibrated dive with the surface offset applied. The shaded
+#' region delineates the dive itself. In both panels, the dashed blue line
+#' indicates the surface noise threshold.
+#'
+#' @param calib_tdr data.frame. Use \code{calibrate_tdr}.
+#' @param diveid character. Deployment identifier.
+#' @param surface_thr numeric. Threshold for surface noise.
+#'
+#' @return gtable with two plots.
+#'
+#' @examples
+#' TODO
+#'
+#' @export
+plot_dive <- function(calib_tdr, diveid, surface_thr = .1) {
   # Event and dive details
   dive <- filter(calib_tdr, DiveID == diveid)
   eventid <- dive$EventID[1]
@@ -11,7 +32,7 @@ plot_dive <- function(calib_tdr, diveid, surface_thr = .1, depth_thr = .2) {
   dive_press_lim <- range(dive$CalibPressure, na.rm = TRUE) %>%
     pmin(c(0, Inf)) %>%
     rev
-  expand_sec <- 5
+  expand_sec <- 2
   dive_plot <- event %>%
     filter(between(UTC, dive_begin - expand_sec, dive_end + expand_sec)) %>%
     mutate(InDive = factor(!is.na(DiveID) & DiveID == diveid)) %>%
