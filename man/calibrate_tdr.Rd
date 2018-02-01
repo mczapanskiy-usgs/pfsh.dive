@@ -38,7 +38,7 @@ data.frame with columns
 }
 \description{
 \code{calibrate_tdr} is a wrapper for
-\code{\link{diveMove::calibrateDepth}}. CEFAS tags record depth in bursts,
+\code{\link[diveMove]{calibrateDepth}}. CEFAS tags record depth in bursts,
 so this function uses a split-apply-combine approach to calibrate each
 FastLog individually. Tags have an error of +/-1m, so for shallow diving
 birds the error may be greater than the depth of the dive. To avoid losing
