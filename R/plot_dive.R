@@ -16,7 +16,19 @@
 #' @return gtable with two plots.
 #'
 #' @examples
-#' TODO
+#' # Uses tidyverse functions
+#' metadata <- system.file('extdata',
+#'   'MOC2015PFSHmetadata.csv',
+#'   package = 'pfsh.dive') %>%
+#'   read_csv
+#' example_tdr <- system.file('extdata',
+#'   paste0('metadata$TDR_filename[1]', '.CSV'),
+#'   package = 'pfsh.dive')
+#' tdr <- read_cefas(example_tdr,
+#'   metadata$Deployed[1],
+#'   metadata$Recovered[1])
+#' calib_tdr <- calibrate_tdr(tdr, metadata$DeployID[1])
+#' plot_dive(calib_tdr, 4)
 #'
 #' @export
 plot_dive <- function(calib_tdr, diveid, surface_thr = .1) {
