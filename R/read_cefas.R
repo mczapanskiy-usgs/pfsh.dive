@@ -3,7 +3,7 @@
 #' Downloading data from CEFAS tags yields a non-tabular CSV. This reads a
 #' CEFAS file and extracts the depth records in a tidy data.frame.
 #'
-#' @param cefas_file Character. Path to CEFAS file.
+#' @param cefas_file character. Path to CEFAS file.
 #' @param deployed POSIXct. Datetime of deployment.
 #' @param recovered POSIXct. Datetime of recovery
 #'
