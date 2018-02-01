@@ -1,3 +1,24 @@
+#' Read a CEFAS file
+#'
+#' Downloading data from CEFAS tags yields a non-tabular CSV. This reads a
+#' CEFAS file and extracts the depth records in a tidy data.frame.
+#'
+#' @param cefas_file Character. Path to CEFAS file.
+#' @param deployed POSIXct. Datetime of deployment.
+#' @param recovered POSIXct. Datetime of recovery
+#'
+#' @return data.frame with columns
+#' \itemize{
+#'   \item{\code{Row} (Row number in original CEFAS file)}
+#'   \item{\code{UTC} (Datetime of record in UTC timezone)}
+#'   \item{\code{Pressure}}
+#'   \item{\code{EventID} (FastLog identifier)}
+#' }
+#'
+#' @examples
+#' TODO
+#'
+#' @export
 read_cefas <- function(cefas_file, deployed, recovered) {
   # Open CEFAS file
   raw_cefas <- readLines(cefas_file)
