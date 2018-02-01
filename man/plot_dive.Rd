@@ -7,7 +7,7 @@
 plot_dive(calib_tdr, diveid, surface_thr = 0.1)
 }
 \arguments{
-\item{calib_tdr}{data.frame. Use \code{calibrate_tdr}.}
+\item{calib_tdr}{data.frame. Use \code{\link{calibrate_tdr}}.}
 
 \item{diveid}{character. Deployment identifier.}
 
@@ -27,6 +27,18 @@ region delineates the dive itself. In both panels, the dashed blue line
 indicates the surface noise threshold.
 }
 \examples{
-TODO
+# Uses tidyverse functions
+metadata <- system.file('extdata',
+  'MOC2015PFSHmetadata.csv',
+  package = 'pfsh.dive') \%>\%
+  read_csv
+example_tdr <- system.file('extdata',
+  paste0('metadata$TDR_filename[1]', '.CSV'),
+  package = 'pfsh.dive')
+tdr <- read_cefas(example_tdr,
+  metadata$Deployed[1],
+  metadata$Recovered[1])
+calib_tdr <- calibrate_tdr(tdr, metadata$DeployID[1])
+plot_dive(calib_tdr, 4)
 
 }

@@ -23,10 +23,20 @@ data.frame with columns
 }
 }
 \description{
-Downloading data from CEFAS tags yields a non-tabular CSV. This reads a
-CEFAS file and extracts the depth records in a tidy data.frame.
+Downloading data from CEFAS tags yields a non-tabular CSV. \code{read_cefas}
+reads a CEFAS file and extracts the depth records in a tidy data.frame.
 }
 \examples{
-TODO
+# Uses tidyverse functions
+metadata <- system.file('extdata',
+  'MOC2015PFSHmetadata.csv',
+  package = 'pfsh.dive') \%>\%
+  read_csv
+example_tdr <- system.file('extdata',
+  paste0('metadata$TDR_filename[1]', '.CSV'),
+  package = 'pfsh.dive')
+tdr <- read_cefas(example_tdr,
+  metadata$Deployed[1],
+  metadata$Recovered[1])
 
 }

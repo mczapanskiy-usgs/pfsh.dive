@@ -4,11 +4,11 @@
 \alias{calibrate_tdr}
 \title{Calibrate CEFAS data}
 \usage{
-calibrate_tdr(tdr, diveid, rate = 0.1, surface_thr = 0.1, depth_thr = 0.2,
-  dur_thr = 0.5)
+calibrate_tdr(tdr, deployid, rate = 0.1, surface_thr = 0.1,
+  depth_thr = 0.2, dur_thr = 0.5)
 }
 \arguments{
-\item{tdr}{data.frame. Use \code{read_cefas} to parse CEFAS file.}
+\item{tdr}{data.frame. Use \code{\link{read_cefas}} to parse CEFAS file.}
 
 \item{rate}{numeric. Sampling rate for FastLog events.}
 
@@ -37,15 +37,27 @@ data.frame with columns
 }
 }
 \description{
-\code{calibrate_tdr} is a wrapper for \code{diveMove:calibrateDepth}. CEFAS
-tags record depth in bursts, so this function uses a split-apply-combine
-approach to calibrate each FastLog individually. Tags have an error of
-+/-1m, so for shallow diving birds the error may be greater than the depth
-of the dive. To avoid losing these dives, the "surface" is assumed to be
-at the shallowest point in each FastLog, not at 0. For tags with a 1m
-threshold, this may bias dive depths shallower.
+\code{calibrate_tdr} is a wrapper for
+\code{\link{diveMove::calibrateDepth}}. CEFAS tags record depth in bursts,
+so this function uses a split-apply-combine approach to calibrate each
+FastLog individually. Tags have an error of +/-1m, so for shallow diving
+birds the error may be greater than the depth of the dive. To avoid losing
+these dives, the "surface" is assumed to be at the shallowest point in each
+FastLog, not at 0. For tags with a 1m threshold, this may bias dive depths
+shallower.
 }
 \examples{
-TODO
+# Uses tidyverse functions
+metadata <- system.file('extdata',
+  'MOC2015PFSHmetadata.csv',
+  package = 'pfsh.dive') \%>\%
+  read_csv
+example_tdr <- system.file('extdata',
+  paste0('metadata$TDR_filename[1]', '.CSV'),
+  package = 'pfsh.dive')
+tdr <- read_cefas(example_tdr,
+  metadata$Deployed[1],
+  metadata$Recovered[1])
+calib_tdr <- calibrate_tdr(tdr, metadata$DeployID[1])
 
 }
