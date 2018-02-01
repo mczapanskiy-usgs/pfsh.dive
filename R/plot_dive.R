@@ -9,7 +9,7 @@
 #' region delineates the dive itself. In both panels, the dashed blue line
 #' indicates the surface noise threshold.
 #'
-#' @param calib_tdr data.frame. Use \code{calibrate_tdr}.
+#' @param calib_tdr data.frame. Use \code{\link{calibrate_tdr}}.
 #' @param diveid character. Deployment identifier.
 #' @param surface_thr numeric. Threshold for surface noise.
 #'

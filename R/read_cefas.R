@@ -1,7 +1,7 @@
 #' Read a CEFAS file
 #'
-#' Downloading data from CEFAS tags yields a non-tabular CSV. This reads a
-#' CEFAS file and extracts the depth records in a tidy data.frame.
+#' Downloading data from CEFAS tags yields a non-tabular CSV. \code{read_cefas}
+#' reads a CEFAS file and extracts the depth records in a tidy data.frame.
 #'
 #' @param cefas_file character. Path to CEFAS file.
 #' @param deployed POSIXct. Datetime of deployment.

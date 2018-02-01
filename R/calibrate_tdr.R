@@ -1,14 +1,15 @@
 #' Calibrate CEFAS data
 #'
-#' \code{calibrate_tdr} is a wrapper for \code{diveMove:calibrateDepth}. CEFAS
-#' tags record depth in bursts, so this function uses a split-apply-combine
-#' approach to calibrate each FastLog individually. Tags have an error of
-#' +/-1m, so for shallow diving birds the error may be greater than the depth
-#' of the dive. To avoid losing these dives, the "surface" is assumed to be
-#' at the shallowest point in each FastLog, not at 0. For tags with a 1m
-#' threshold, this may bias dive depths shallower.
+#' \code{calibrate_tdr} is a wrapper for
+#' \code{\link{diveMove::calibrateDepth}}. CEFAS tags record depth in bursts,
+#' so this function uses a split-apply-combine approach to calibrate each
+#' FastLog individually. Tags have an error of +/-1m, so for shallow diving
+#' birds the error may be greater than the depth of the dive. To avoid losing
+#' these dives, the "surface" is assumed to be at the shallowest point in each
+#' FastLog, not at 0. For tags with a 1m threshold, this may bias dive depths
+#' shallower.
 #'
-#' @param tdr data.frame. Use \code{read_cefas} to parse CEFAS file.
+#' @param tdr data.frame. Use \code{\link{read_cefas}} to parse CEFAS file.
 #' @param id character. Deployment identifier.
 #' @param rate numeric. Sampling rate for FastLog events.
 #' @param surface_thr numeric. Threshold for surface noise.
