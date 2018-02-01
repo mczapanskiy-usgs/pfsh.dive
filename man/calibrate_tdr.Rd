@@ -53,7 +53,7 @@ metadata <- system.file('extdata',
   package = 'pfsh.dive') \%>\%
   read_csv
 example_tdr <- system.file('extdata',
-  paste0('metadata$TDR_filename[1]', '.CSV'),
+  paste0(metadata$TDR_filename[1], '.CSV'),
   package = 'pfsh.dive')
 tdr <- read_cefas(example_tdr,
   metadata$Deployed[1],
