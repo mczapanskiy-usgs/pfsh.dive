@@ -10,7 +10,7 @@
 #' indicates the surface noise threshold.
 #'
 #' @param calib_tdr data.frame. Use \code{\link{calibrate_tdr}}.
-#' @param diveid character. Deployment identifier.
+#' @param diveid integer. Identifier of dive to plot.
 #' @param surface_thr numeric. Threshold for surface noise.
 #'
 #' @return gtable with two plots.
