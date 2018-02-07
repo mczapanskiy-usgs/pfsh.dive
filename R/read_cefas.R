@@ -30,7 +30,7 @@
 #'                   metadata$Deployed[1],
 #'                   metadata$Recovered[1])
 #'
-#' @import tidyverse
+#' @import dplyr
 #'
 #' @export
 read_cefas <- function(cefas_file, deployed, recovered) {
