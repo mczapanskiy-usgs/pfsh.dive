@@ -47,17 +47,21 @@ FastLog, not at 0. For tags with a 1m threshold, this may bias dive depths
 shallower.
 }
 \examples{
-# Uses tidyverse functions
-metadata <- system.file('extdata',
-  'MOC2015PFSHmetadata.csv',
-  package = 'pfsh.dive') \%>\%
-  read_csv
-example_tdr <- system.file('extdata',
-  paste0(metadata$TDR_filename[1], '.CSV'),
-  package = 'pfsh.dive')
+# Load metadata
+metadata_path <- system.file('extdata',
+                             'MOC2015PFSHmetadata.csv',
+                             package = 'pfsh.dive')
+metadata <- readr::read_csv(metadata_path)
+
+# Read CEFAS output
+tdr_path_ <- system.file('extdata',
+                         paste0(metadata$TDR_filename[1], '.CSV'),
+                         package = 'pfsh.dive')
 tdr <- read_cefas(example_tdr,
-  metadata$Deployed[1],
-  metadata$Recovered[1])
+                  metadata$Deployed[1],
+                  metadata$Recovered[1])
+
+# Calibrate TDR data
 calib_tdr <- calibrate_tdr(tdr, metadata$DeployID[1])
 
 }
