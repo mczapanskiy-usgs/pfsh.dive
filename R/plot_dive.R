@@ -13,6 +13,8 @@
 #' @param diveid integer. Identifier of dive to plot.
 #' @param surface_thr numeric. Threshold for surface noise.
 #'
+#' @import ggplot2
+#'
 #' @return gtable with two plots.
 #'
 #' @examples
@@ -55,18 +57,18 @@ plot_dive <- function(calib_tdr, diveid, surface_thr = .1) {
   dive_plot <- event %>%
     filter(between(UTC, dive_begin - expand_sec, dive_end + expand_sec)) %>%
     mutate(InDive = factor(!is.na(DiveID) & DiveID == diveid)) %>%
-    ggplot2::ggplot(aes(x = UTC, y = CalibPressure)) +
-    ggplot2::geom_line(color = 'blue') +
-    ggplot2::geom_point(aes(color = InDive)) +
-    ggplot2::geom_hline(yintercept = surface_thr,
+    ggplot(aes(x = UTC, y = CalibPressure)) +
+    geom_line(color = 'blue') +
+    geom_point(aes(color = InDive)) +
+    geom_hline(yintercept = surface_thr,
                         color = 'blue',
                         linetype = 'dashed') +
-    ggplot2::ylim(dive_press_lim) +
-    ggplot2::scale_x_datetime(date_labels = '%H:%M:%OS1',
+    ylim(dive_press_lim) +
+    scale_x_datetime(date_labels = '%H:%M:%OS1',
                               breaks = break_fun) +
-    ggplot2::scale_color_manual(values = c('red', 'blue')) +
-    ggplot2::theme(legend.position = 'none') +
-    ggplot2::labs(x = 'Time (UTC)',
+    scale_color_manual(values = c('red', 'blue')) +
+    theme(legend.position = 'none') +
+    labs(x = 'Time (UTC)',
                   y = 'Depth (m)',
                   title = sprintf('DeployID %s DiveID %s', deployid, diveid))
 
@@ -78,25 +80,25 @@ plot_dive <- function(calib_tdr, diveid, surface_thr = .1) {
     rev
   event_plot <- event %>%
     mutate(InDive = factor(!is.na(DiveID) & DiveID == diveid)) %>%
-    ggplot2::ggplot(aes(x = UTC)) +
-    ggplot2::geom_line(aes(y = Pressure), color = 'red') +
-    ggplot2::geom_point(aes(y = Pressure), color = 'red') +
-    ggplot2::geom_line(aes(y = CalibPressure), color = 'green') +
-    ggplot2::geom_point(aes(y = CalibPressure), color = 'green') +
-    ggplot2::geom_hline(yintercept = surface_thr,
+    ggplot(aes(x = UTC)) +
+    geom_line(aes(y = Pressure), color = 'red') +
+    geom_point(aes(y = Pressure), color = 'red') +
+    geom_line(aes(y = CalibPressure), color = 'green') +
+    geom_point(aes(y = CalibPressure), color = 'green') +
+    geom_hline(yintercept = surface_thr,
                         color = 'blue',
                         linetype = 'dashed') +
-    ggplot2::annotate('rect',
+    annotate('rect',
                       xmin = dive_begin,
                       xmax = dive_end,
                       ymin = event_press_lim[2],
                       ymax = event_press_lim[1],
                       alpha = 0.2,
                       fill = 'black') +
-    ggplot2::ylim(event_press_lim) +
-    ggplot2::scale_x_datetime(date_labels = '%H:%M:%OS1',
+    ylim(event_press_lim) +
+    scale_x_datetime(date_labels = '%H:%M:%OS1',
                               breaks = break_fun) +
-    ggplot2::labs(x = 'Time (UTC)',
+    labs(x = 'Time (UTC)',
                   y = 'Depth (m)',
                   title = '')
 
