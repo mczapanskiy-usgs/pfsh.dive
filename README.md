@@ -7,7 +7,7 @@
 ```r
 # pfsh.dive is on GitHub, not CRAN, so use the following code for installation
 install.packages('devtools')
-devtools::install_github('mczapanskiy-usgs/pfsh.dive')_
+devtools::install_github('mczapanskiy-usgs/pfsh.dive')
 ```
 
 ## Usage

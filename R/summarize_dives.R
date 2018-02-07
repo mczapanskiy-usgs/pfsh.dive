@@ -27,7 +27,7 @@
 #' tdr_path_ <- system.file('extdata',
 #'                          paste0(metadata$TDR_filename[1], '.CSV'),
 #'                          package = 'pfsh.dive')
-#' tdr <- read_cefas(example_tdr,
+#' tdr <- read_cefas(tdr_path,
 #'                   metadata$Deployed[1],
 #'                   metadata$Recovered[1])
 #'
