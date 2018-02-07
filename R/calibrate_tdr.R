@@ -10,7 +10,7 @@
 #' shallower.
 #'
 #' @param tdr data.frame. Use \code{\link{read_cefas}} to parse CEFAS file.
-#' @param id character. Deployment identifier.
+#' @param deployid character. Deployment identifier.
 #' @param rate numeric. Sampling rate for FastLog events.
 #' @param surface_thr numeric. Threshold for surface noise.
 #' @param depth_thr numeric. Minimum depth to qualify as a dive.

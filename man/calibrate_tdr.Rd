@@ -10,6 +10,8 @@ calibrate_tdr(tdr, deployid, rate = 0.1, surface_thr = 0.1,
 \arguments{
 \item{tdr}{data.frame. Use \code{\link{read_cefas}} to parse CEFAS file.}
 
+\item{deployid}{character. Deployment identifier.}
+
 \item{rate}{numeric. Sampling rate for FastLog events.}
 
 \item{surface_thr}{numeric. Threshold for surface noise.}
@@ -17,8 +19,6 @@ calibrate_tdr(tdr, deployid, rate = 0.1, surface_thr = 0.1,
 \item{depth_thr}{numeric. Minimum depth to qualify as a dive.}
 
 \item{dur_thr}{numeric. Minimum duration to qualify as a dive.}
-
-\item{id}{character. Deployment identifier.}
 }
 \value{
 data.frame with columns
