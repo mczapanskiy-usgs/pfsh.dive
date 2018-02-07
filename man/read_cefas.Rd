@@ -34,7 +34,7 @@ metadata_path <- system.file('extdata',
 metadata <- readr::read_csv(metadata_path)
 
 # Read CEFAS output
-tdr_path_ <- system.file('extdata',
+tdr_path <- system.file('extdata',
                          paste0(metadata$TDR_filename[1], '.CSV'),
                          package = 'pfsh.dive')
 tdr <- read_cefas(tdr_path,
