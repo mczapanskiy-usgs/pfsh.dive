@@ -59,7 +59,7 @@ read_cefas <- function(cefas_file, deployed, recovered) {
   # Extract date/time and pressure
   dtp_df <- record_df %>%
     mutate(raw_record = raw_cefas[Row]) %>%
-    separate(raw_record, c('UTC', 'Pressure'), ',') %>%
+    tidyr::separate(raw_record, c('UTC', 'Pressure'), ',') %>%
     mutate(UTC = as.POSIXct(UTC, tz = 'UTC', format = '%d/%m/%y %H:%M:%OS') + 0.01,
            Pressure = as.double(Pressure))
 
